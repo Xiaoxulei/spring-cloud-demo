@@ -1,0 +1,34 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: bing-route
+          uri: https://www.baidu.com/
+          predicates:
+            - name: Path
+              args:
+                patterns: /s
+            - name: Query
+              args:
+                param: wd
+                regexp: xuxiaolei
+            #- Vip=user,xiaoxulei
+            - name: VipQuery
+              args:
+                param: user
+                value: xiaoxulei
+        #order
+        - id: order-route
+          uri: lb://service-order
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - RewritePath=/api/product/?(?<segment>.*), /$\{segment}
+        #product
+        - id: product-route
+          uri: lb://service-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/product/?(?<segment>.*), /$\{segment}
+            - StripPrefix=1 #去掉前缀

@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @Create: 2025/07/22 23:26
  **/
 @RestController
+//@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
@@ -29,11 +30,11 @@ public class ProductController {
         String header = request.getHeader("X-Token");
         System.out.println("hello token = 【" + header + "】");
         Product product =productService.getProductById(productId);
-        try {
+        /*try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         return product;
     }
 }

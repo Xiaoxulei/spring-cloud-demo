@@ -1,6 +1,7 @@
 package com.xuxiaolei.order.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.xuxiaolei.order.Order;
 import com.xuxiaolei.order.properties.OrderProperties;
 import com.xuxiaolei.order.service.OrderService;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Program: spring-cloud-demo
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @EnableFeignClients  //开启Feign远程调用功能
 @RestController
+//@RequestMapping("/api/order")
 public class OrderController {
     /*@Value("${order.timeout}")
     private String orderTimeout;
@@ -49,10 +48,20 @@ public class OrderController {
     }
 
     @GetMapping("/secKill")
-    public Order secKill(@RequestParam("userId") Long userId ,
-                             @RequestParam("productId") Long  productId) {
+    @SentinelResource(value = "secKill-order",fallback = "secKillFallback")
+    public Order secKill(@RequestParam(value = "userId",required = false) Long userId ,
+                             @RequestParam(value = "productId",required = false) Long  productId) {
         Order order = orderService.createOrder(productId, userId);
         order.setId(Long.MAX_VALUE);
+        return order;
+
+    }
+    public Order secKillFallback(Long userId , Long  productId , Throwable exception) {
+        System.out.println("secKillFallback....");
+        Order order = new Order();
+        order.setAddress("异常信息" + exception.getClass());
+        order.setId(userId);
+        order.setNickName(productId.toString());
         return order;
 
     }
