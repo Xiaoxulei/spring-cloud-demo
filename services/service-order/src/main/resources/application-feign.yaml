@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 3000
+            readTimeout: 2000
+            loggerLevel: full
+#          service-product:
+#            connectTimeout: 3000
+#            readTimeout: 5000
+#            loggerLevel: full
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+      eager: true
+      web-context-unify: false #每个请求路径使用自己独立的上下文名称（Context Name），不统一为一个默认名
+feign:
+  sentinel:
+    enabled: true

@@ -1,0 +1,48 @@
+server:
+  port: 8000
+spring:
+  profiles:
+    active: dev
+    include: feign
+  application:
+    name: service-order
+#  config:
+#    import:
+#      - nacos:order-dev.yaml?order-service
+#      - nacos:product-dev.yaml?product-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false
+        namespace: ${spring.profiles.active:public}
+#        file-extension: yaml
+logging:
+  level:
+    com.xuxiaolei.order.feign: debug
+---
+spring:
+  config:
+    import:
+      - nacos:order-dev.yaml?order-service
+      - nacos:product-dev.yaml?product-service
+    activate:
+      on-profile: dev
+---
+spring:
+  config:
+    import:
+      - nacos:order-dev.yaml?order-service
+      - nacos:product-dev.yaml?product-service
+    activate:
+      on-profile: test
+
+---
+spring:
+  config:
+    import:
+      - nacos:order-dev.yaml?order-service
+      - nacos:product-dev.yaml?product-service
+    activate:
+      on-profile: prod

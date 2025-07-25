@@ -1,0 +1,20 @@
+server:
+  port: 9005
+openai:
+  api:
+    key:    # 你的 OpenAI API Key
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            loggerLevel: full
+#          service-product:
+#            connectTimeout: 3000
+#            readTimeout: 5000
+#            loggerLevel: full
+    nacos:
+      config:
+        import-check:
+          enabled: false
