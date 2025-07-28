@@ -1,6 +1,15 @@
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: '*'
+            allowed-headers: '*'
+            allowed-methods: '*'
+
+      default-filters:  #默认过滤器
+        - AddResponseHeader=X-Response-Red,xuxiaolei #添加相应头
       routes:
         - id: bing-route
           uri: https://www.baidu.com/
@@ -23,7 +32,8 @@ spring:
           predicates:
             - Path=/api/order/**
           filters:
-            - RewritePath=/api/product/?(?<segment>.*), /$\{segment}
+            - RewritePath=/api/order/?(?<segment>.*), /$\{segment}
+            - OnceToken=X-Response-Token,jwt
         #product
         - id: product-route
           uri: lb://service-product
@@ -31,4 +41,4 @@ spring:
             - Path=/api/product/**
           filters:
             - RewritePath=/api/product/?(?<segment>.*), /$\{segment}
-            - StripPrefix=1 #去掉前缀
+#            - StripPrefix=1 #去掉前缀
