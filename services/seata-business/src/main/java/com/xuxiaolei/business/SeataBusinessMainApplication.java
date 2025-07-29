@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
-@EnableFeignClients(basePackages = "com.atguigu.business.feign")
+@EnableFeignClients(basePackages = "com.xuxiaolei.business.feign")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class SeataBusinessMainApplication {

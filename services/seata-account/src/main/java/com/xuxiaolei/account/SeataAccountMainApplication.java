@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @EnableTransactionManagement
-@MapperScan("com.atguigu.account.mapper")
+@MapperScan("com.xuxiaolei.account.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class SeataAccountMainApplication {

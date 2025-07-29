@@ -13,7 +13,7 @@ spring:
 #            loggerLevel: full
     sentinel:
       transport:
-        dashboard: localhost:8080
+        dashboard: localhost:8888
       eager: true
       web-context-unify: false #每个请求路径使用自己独立的上下文名称（Context Name），不统一为一个默认名
 feign:

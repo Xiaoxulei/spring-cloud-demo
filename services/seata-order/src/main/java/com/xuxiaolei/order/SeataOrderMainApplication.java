@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 
-@EnableFeignClients(basePackages = "com.atguigu.order.feign")
+@EnableFeignClients(basePackages = "com.xuxiaolei.order.feign")
 @EnableTransactionManagement
-@MapperScan("com.atguigu.order.mapper")
+@MapperScan("com.xuxiaolei.order.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class SeataOrderMainApplication {

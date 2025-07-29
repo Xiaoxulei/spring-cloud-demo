@@ -12,5 +12,5 @@ spring:
           enabled: false #禁用nacos配置
     sentinel:
       transport:
-        dashboard: localhost:8080
+        dashboard: localhost:8888
       eager: true

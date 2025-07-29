@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @EnableTransactionManagement
-@MapperScan("com.atguigu.storage.mapper")
+@MapperScan("com.xuxiaolei.storage.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class SeataStorageMainApplication {
